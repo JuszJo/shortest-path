@@ -24,12 +24,6 @@ class Graph {
         })
         data.splice(0)
 
-        document.querySelectorAll("td").forEach(value => {
-            if(value.innerHTML == edge) {
-                value.classList.add("wall");
-            }
-        })
-
         return this.nodes.get(edge);
     }
 
@@ -80,6 +74,9 @@ class Graph {
                 }
             }
         }
+        if(queue < 1) {
+            return document.querySelector("h3").innerHTML = `${stop} Not Found`;
+        }
     }
 
     display() {
@@ -88,22 +85,6 @@ class Graph {
         }
     }
 }
-
-var graph = new Graph();
-
-var row1 = document.querySelector(".row1");
-var row2 = document.querySelector(".row2");
-var row3 = document.querySelector(".row3");
-var row4 = document.querySelector(".row4");
-var row5 = document.querySelector(".row5");
-var row6 = document.querySelector(".row6");
-var row7 = document.querySelector(".row7");
-var row8 = document.querySelector(".row8");
-var row9 = document.querySelector(".row9");
-var row10 = document.querySelector(".row10");
-
-var arr = [];
-var num = 1;
 
 function rowNode(row, rowLength) {
     for(var cell1 in row.children) {
@@ -131,6 +112,80 @@ function rowEdge(row, rowsec) {
     }
 }
 
+function automate() {
+    graph.nodes.clear();
+    num = 1;
+
+    rowNode(row1, 20);
+    rowNode(row2, 40);
+    rowNode(row3, 60);
+    rowNode(row4, 80);
+    rowNode(row5, 100);
+    rowNode(row6, 120);
+    rowNode(row7, 140);
+    rowNode(row8, 160);
+    rowNode(row9, 180);
+    rowNode(row10, 200);
+
+    rowEdge(row1, row2);
+    rowEdge(row2, row3);
+    rowEdge(row3, row4);
+    rowEdge(row4, row5);
+    rowEdge(row5, row6);
+    rowEdge(row6, row7);
+    rowEdge(row7, row8);
+    rowEdge(row8, row9);
+    rowEdge(row9, row10);
+}
+
+function wall() {
+    var cell = document.querySelectorAll("td");;
+    var select = document.querySelector("select");
+    var option = select.options[select.selectedIndex].value * 2;
+    var count = 0;
+    cell.forEach(value => {
+        if(value.classList.contains("wall")) {
+            value.classList.remove("wall");
+        }
+        value.classList.remove("visited");
+        value.classList.remove("found");
+    })
+
+    automate()
+    
+    for(var index in cell) {
+        if(count < option) {
+            var random = Math.floor((Math.random() * 199) + 1);
+            if(random != 0) {
+                graph.removeEdge(cell[random].innerHTML);
+                cell[random].classList.add("wall");
+            }
+        }
+        
+        if(graph.nodes.get(cell[index].innerHTML) < 1) {
+            cell[index].classList.add("wall");
+        }
+        
+        ++count;
+    }
+}
+
+var graph = new Graph();
+
+var row1 = document.querySelector(".row1");
+var row2 = document.querySelector(".row2");
+var row3 = document.querySelector(".row3");
+var row4 = document.querySelector(".row4");
+var row5 = document.querySelector(".row5");
+var row6 = document.querySelector(".row6");
+var row7 = document.querySelector(".row7");
+var row8 = document.querySelector(".row8");
+var row9 = document.querySelector(".row9");
+var row10 = document.querySelector(".row10");
+
+var arr = [];
+var num = 1;
+
 rowNode(row1, 20);
 rowNode(row2, 40);
 rowNode(row3, 60);
@@ -152,43 +207,23 @@ rowEdge(row7, row8);
 rowEdge(row8, row9);
 rowEdge(row9, row10);
 
-graph.removeEdge('7');
-graph.removeEdge('27');
-graph.removeEdge('47');
-graph.removeEdge('67');
-graph.removeEdge('87');
-graph.removeEdge('88');
-graph.removeEdge('41');
-graph.removeEdge('42');
-graph.removeEdge('43');
-graph.removeEdge('44');
+var test = document.querySelectorAll("td");
+var button = document.querySelector("button");
 
-var rem = 13;
-var rem5 = 121;
-var rem2 = 161;
-var rem4 = 11;
-var rem3 = 54;
-var rem6 = 155;
-var rem7 = 70;
+button.addEventListener('click', wall);
 
-for(var shit = 0; shit < 6; ++shit) {
-    graph.removeEdge(rem.toString());
-    graph.removeEdge(rem2.toString());
-    graph.removeEdge(rem3.toString());
-    graph.removeEdge(rem4.toString());
-    graph.removeEdge(rem5.toString());
-    graph.removeEdge(rem6.toString());
-    graph.removeEdge(rem7.toString());
-    ++rem2;
-    ++rem3;
-    ++rem5;
-    ++rem6;
-    rem4 += 20;
-    rem += 20;
-    rem7 += 20;
-}
+test.forEach(grid => grid.addEventListener('click', function() {
+    if(graph.nodes.get(grid.innerHTML).length < 1) return document.querySelector("h3").innerHTML = `Not Found`;
+    if(grid.innerHTML == 1) return document.querySelector("h3").innerHTML = `1 is already found`;
+    document.querySelector("h3").innerHTML = `Looking For ${grid.innerHTML}`
+    document.querySelectorAll("td").forEach(value => {
+        value.classList.remove("visited");
+        value.classList.remove("found");
+    });
+    graph.bfs("1", grid.innerHTML)
+}))
 
-document.querySelector("input").addEventListener("keyup", enter => {
+/*document.querySelector("input").addEventListener("keyup", enter => {
     if(enter.key == "Enter") {
         var val = document.querySelector("input").value
         var vis = document.querySelectorAll("td");
@@ -201,17 +236,4 @@ document.querySelector("input").addEventListener("keyup", enter => {
         });
         graph.bfs("1", val);
     }
-});
-
-var test = document.querySelectorAll("td");
-
-test.forEach(grid => grid.addEventListener('click', function() {
-    if(graph.nodes.get(grid.innerHTML).length < 1) return document.querySelector("h3").innerHTML = `Not Found`;
-    if(grid.innerHTML == 1) return document.querySelector("h3").innerHTML = `1 is already found`;
-    document.querySelectorAll("td").forEach(value => {
-        value.classList.remove("first");
-        value.classList.remove("visited");
-        value.classList.remove("found");
-    });
-    graph.bfs("1", grid.innerHTML)
-}))
+});*/

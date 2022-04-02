@@ -11,9 +11,18 @@
     <div class="header">
         <h1 class="space">Path Finding Visualizer</h1>
         <h2 class="space">Breadth First Search (Undirected and Unweigthed Graph)</h2>
+        <label class="space" for="freq">Frequency</label>
+        <select id="freq" name="Frequency">
+            <option value="30" selected>30%</option>
+            <option value="40">40%</option>
+            <option value="50">50%</option>
+            <option value="60">60%</option>
+            <option value="70">70%</option>
+        </select>
+        <button>Randomize Walls</button>
         <label class="space" for="choose">Choose a node to find</label>
-        <input type="text" value="0" autofocus="autofocus">
-        <h3 class="space"></h3>
+        <!--<input type="text" value="0" autofocus="autofocus">-->
+        <h3 class="space">Looking For </h3>
     </div>
     <div>
         <table>
@@ -241,7 +250,6 @@
             </tbody>
         </table>
     </div>
-    <aside></aside>
     <script src="script.js"></script>
 </body>
 </html>
