@@ -1,0 +1,68 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header {
+    margin: 2rem;
+}
+
+div:nth-child(2) {
+    width: 766px;
+    border: 0.1rem solid black;
+}
+
+.space {
+    padding: 0.5rem;
+    margin: 0.5rem;
+}
+
+/*table {
+    
+}*/
+
+aside {
+    display: inline;
+    height: 200px;
+    width: 200px;
+}
+
+table {
+
+}
+
+td {
+    border: 0.01rem solid black;
+    text-align: center;
+    height: 30px;
+    width: 35px;
+    cursor: pointer;
+    color: transparent;
+}
+
+.first {
+    background-color: aqua;
+}
+
+.visited {
+    background-color: aqua;
+}
+
+.found {
+    background-color: red;
+}
+
+.wall {
+    background-color: black;
+}
