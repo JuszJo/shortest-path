@@ -160,17 +160,24 @@ function wall() {
                 graph.removeEdge(cell[random].innerHTML);
                 cell[random].classList.add("wall");
             }
-        }
         
-        if(graph.nodes.get(cell[index].innerHTML) < 1) {
-            cell[index].classList.add("wall");
         }
-        
         ++count;
+    }
+    for(var val in cell) {
+        if(typeof(cell[val]) == "object") {
+            var size = graph.nodes.get(cell[val].innerHTML)
+            if(size < 1) {
+                if(val != 0) {
+                    cell[val].classList.add("wall");
+                }
+            }
+        }
     }
 }
 
 var graph = new Graph();
+
 
 var row1 = document.querySelector(".row1");
 var row2 = document.querySelector(".row2");
