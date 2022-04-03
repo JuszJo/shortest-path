@@ -56,7 +56,7 @@ class Graph {
                         vis.forEach(value => {
                             path.forEach(elem => {
                                 if(elem == value.innerHTML) {
-                                    value.classList.add("found");
+                                    value.classList.add("found")
                                 }
                             });
                         });
@@ -126,6 +126,8 @@ function automate() {
     rowNode(row8, 160);
     rowNode(row9, 180);
     rowNode(row10, 200);
+    rowNode(row11, 220);
+    rowNode(row12, 240);
 
     rowEdge(row1, row2);
     rowEdge(row2, row3);
@@ -136,6 +138,8 @@ function automate() {
     rowEdge(row7, row8);
     rowEdge(row8, row9);
     rowEdge(row9, row10);
+    rowEdge(row10, row11);
+    rowEdge(row11, row12);
 }
 
 function wall() {
@@ -155,12 +159,11 @@ function wall() {
     
     for(var index in cell) {
         if(count < option) {
-            var random = Math.floor((Math.random() * 199) + 1);
+            var random = Math.floor((Math.random() * (graph.nodes.size - 1)) + 1);
             if(random != 0) {
                 graph.removeEdge(cell[random].innerHTML);
                 cell[random].classList.add("wall");
             }
-        
         }
         ++count;
     }
@@ -189,6 +192,8 @@ var row7 = document.querySelector(".row7");
 var row8 = document.querySelector(".row8");
 var row9 = document.querySelector(".row9");
 var row10 = document.querySelector(".row10");
+var row11 = document.querySelector(".row11");
+var row12 = document.querySelector(".row12");
 
 var arr = [];
 var num = 1;
@@ -203,6 +208,8 @@ rowNode(row7, 140);
 rowNode(row8, 160);
 rowNode(row9, 180);
 rowNode(row10, 200);
+rowNode(row11, 220);
+rowNode(row12, 240);
 
 rowEdge(row1, row2);
 rowEdge(row2, row3);
@@ -213,6 +220,8 @@ rowEdge(row6, row7);
 rowEdge(row7, row8);
 rowEdge(row8, row9);
 rowEdge(row9, row10);
+rowEdge(row10, row11);
+rowEdge(row11, row12);
 
 var test = document.querySelectorAll("td");
 var button = document.querySelector("button");
