@@ -112,34 +112,30 @@ function rowEdge(row, rowsec) {
     }
 }
 
+function add() {
+    var len = 20;
+    var all = document.querySelectorAll("tr");
+
+    for(var ro in all) {
+        if(typeof(all[ro]) == "object") {
+            rowNode(all[ro], len)
+            len += 20;
+        }
+    }
+    
+    for(var ro in all) {
+        if(typeof(all[ro]) == "object") {
+            if(ro < (all.length - 1)) {
+                rowEdge(all[ro], all[parseInt(ro) + 1])
+            }
+        }
+    }
+}
+
 function automate() {
     graph.nodes.clear();
     num = 1;
-
-    rowNode(row1, 20);
-    rowNode(row2, 40);
-    rowNode(row3, 60);
-    rowNode(row4, 80);
-    rowNode(row5, 100);
-    rowNode(row6, 120);
-    rowNode(row7, 140);
-    rowNode(row8, 160);
-    rowNode(row9, 180);
-    rowNode(row10, 200);
-    rowNode(row11, 220);
-    rowNode(row12, 240);
-
-    rowEdge(row1, row2);
-    rowEdge(row2, row3);
-    rowEdge(row3, row4);
-    rowEdge(row4, row5);
-    rowEdge(row5, row6);
-    rowEdge(row6, row7);
-    rowEdge(row7, row8);
-    rowEdge(row8, row9);
-    rowEdge(row9, row10);
-    rowEdge(row10, row11);
-    rowEdge(row11, row12);
+    add();
 }
 
 function wall() {
@@ -181,47 +177,13 @@ function wall() {
 
 var graph = new Graph();
 
-
-var row1 = document.querySelector(".row1");
-var row2 = document.querySelector(".row2");
-var row3 = document.querySelector(".row3");
-var row4 = document.querySelector(".row4");
-var row5 = document.querySelector(".row5");
-var row6 = document.querySelector(".row6");
-var row7 = document.querySelector(".row7");
-var row8 = document.querySelector(".row8");
-var row9 = document.querySelector(".row9");
-var row10 = document.querySelector(".row10");
-var row11 = document.querySelector(".row11");
-var row12 = document.querySelector(".row12");
-
 var arr = [];
 var num = 1;
 
-rowNode(row1, 20);
-rowNode(row2, 40);
-rowNode(row3, 60);
-rowNode(row4, 80);
-rowNode(row5, 100);
-rowNode(row6, 120);
-rowNode(row7, 140);
-rowNode(row8, 160);
-rowNode(row9, 180);
-rowNode(row10, 200);
-rowNode(row11, 220);
-rowNode(row12, 240);
-
-rowEdge(row1, row2);
-rowEdge(row2, row3);
-rowEdge(row3, row4);
-rowEdge(row4, row5);
-rowEdge(row5, row6);
-rowEdge(row6, row7);
-rowEdge(row7, row8);
-rowEdge(row8, row9);
-rowEdge(row9, row10);
-rowEdge(row10, row11);
-rowEdge(row11, row12);
+setTimeout(() => {
+    add();
+    //graph.display()
+}, 500)
 
 var test = document.querySelectorAll("td");
 var button = document.querySelector("button");
