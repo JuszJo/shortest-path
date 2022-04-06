@@ -24,19 +24,17 @@ class Graph {
         })
         data.splice(0)
 
-        return this.nodes.get(edge);
+        //return this.nodes.get(edge);
     }
 
     async bfs(startingNode, stop) {
         var vis = document.querySelectorAll("td");
         vis.item(0).classList.add("visited");
         var queue = [];
-        var queue2 = []
+        var queue2 = [];
         var visited = [];
-        var path = [];
         queue.push(startingNode);
         queue2.push([startingNode]);
-        path.push([startingNode]);
         visited[startingNode] = true;
 
         while(queue.length > 0) {
@@ -87,6 +85,7 @@ class Graph {
 }
 
 function rowNode(row, rowLength) {
+    var arr = []
     for(var cell1 in row.children) {
         if(typeof(row.children[cell1]) == "object") {
             row.children[cell1].innerHTML = num;
@@ -101,7 +100,6 @@ function rowNode(row, rowLength) {
             ++num;
         }
     }
-    arr = [];
 }
 
 function rowEdge(row, rowsec) {
@@ -113,13 +111,15 @@ function rowEdge(row, rowsec) {
 }
 
 function add() {
-    var len = 20;
+    num = 1;
+    var size = document.querySelector("tr").cells.length
+    //console.log(size)
     var all = document.querySelectorAll("tr");
 
     for(var ro in all) {
         if(typeof(all[ro]) == "object") {
-            rowNode(all[ro], len)
-            len += 20;
+            rowNode(all[ro], size)
+            size += size;
         }
     }
     
@@ -134,14 +134,14 @@ function add() {
 
 function automate() {
     graph.nodes.clear();
-    num = 1;
     add();
 }
 
 function wall() {
     var cell = document.querySelectorAll("td");;
     var select = document.querySelector("select");
-    var option = select.options[select.selectedIndex].value * 2;
+    //var option = select.options[select.selectedIndex].value * 2;
+    var option = Math.floor((select.options[select.selectedIndex].value * graph.nodes.size) / 100)
     var count = 0;
     cell.forEach(value => {
         if(value.classList.contains("wall")) {
@@ -151,7 +151,7 @@ function wall() {
         value.classList.remove("found");
     })
 
-    automate()
+    automate();
     
     for(var index in cell) {
         if(count < option) {
@@ -163,6 +163,7 @@ function wall() {
         }
         ++count;
     }
+    count = 0
     for(var val in cell) {
         if(typeof(cell[val]) == "object") {
             var size = graph.nodes.get(cell[val].innerHTML)
@@ -177,12 +178,8 @@ function wall() {
 
 var graph = new Graph();
 
-var arr = [];
-var num = 1;
-
 setTimeout(() => {
     add();
-    //graph.display()
 }, 500)
 
 var test = document.querySelectorAll("td");
