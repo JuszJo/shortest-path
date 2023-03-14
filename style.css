@@ -1,0 +1,58 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    font-size: 16px;
+    font-family: Helvetica, sans-serif
+}
+
+body {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header {
+    margin: 1.5rem 2rem 1rem 2rem;
+}
+
+button {
+    margin-left: 0.55rem;
+}
+
+div:nth-child(2) {
+    border: 0.01rem solid black;
+}
+
+.space {
+    padding: 0.25rem;
+    margin: 0.25rem;
+}
+
+td {
+    border: 0.01rem solid black;
+    text-align: center;
+    height: 25px;
+    width: 30px;
+    cursor: pointer;
+    color: transparent;
+}
+
+.first {
+    background-color: aqua;
+}
+
+.visited {
+    background-color: aqua;
+}
+
+.found {
+    background-color: red;
+}
+
+.wall {
+    background-color: black;
+}
