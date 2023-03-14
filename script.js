@@ -191,6 +191,8 @@ test.forEach(grid => grid.addEventListener('click', function() {
     if(graph.nodes.get(grid.innerHTML).length < 1) return document.querySelector("h3").innerHTML = `Not Found`;
     if(grid.innerHTML == 1) return document.querySelector("h3").innerHTML = `1 is already found`;
     document.querySelector("h3").innerHTML = `Looking For ${grid.innerHTML}`
+
+    //remove previous visited and found
     document.querySelectorAll("td").forEach(value => {
         value.classList.remove("visited");
         value.classList.remove("found");
